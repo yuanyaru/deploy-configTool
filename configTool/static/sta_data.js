@@ -1,69 +1,6 @@
-function yxTableClick() {
-    var elems = document.getElementsByName("yx");
-    for(var i=0;i<elems.length;i++){
-        elems[i].addEventListener('click',function(evt){
-            clearYxTable();
-            // jquery对象
-            var elm = $(this).parents("li")["1"];
-            stationId = $(elm).children().eq(1).text();
-            show_yx_table();
-        })
-    }
-}
-
-function ycTableClick() {
-    var elems = document.getElementsByName("yc");
-    for(var i=0;i<elems.length;i++){
-        elems[i].addEventListener('click',function(evt){
-            clearYcTable();
-            // jquery对象
-            var elm = $(this).parents("li")["1"];
-            stationId = $(elm).children().eq(1).text();
-            show_yc_table();
-        })
-    }
-}
-
-function ykTableClick() {
-    var elems = document.getElementsByName("yk");
-    for(var i=0;i<elems.length;i++){
-        elems[i].addEventListener('click',function(evt){
-            clearYkTable();
-            // jquery对象
-            var elm = $(this).parents("li")["1"];
-            stationId = $(elm).children().eq(1).text();
-            show_yk_table();
-        })
-    }
-}
-
-function ytTableClick() {
-    var elems = document.getElementsByName("yt");
-    for(var i=0;i<elems.length;i++){
-        elems[i].addEventListener('click',function(evt){
-            clearYtTable();
-            // jquery对象
-            var elm = $(this).parents("li")["1"];
-            stationId = $(elm).children().eq(1).text();
-            show_yt_table();
-        })
-    }
-}
-
-function soeTableClick() {
-    var elems = document.getElementsByName("soe");
-    for(var i=0;i<elems.length;i++){
-        elems[i].addEventListener('click',function(evt){
-            clearSoeTable();
-            // jquery对象
-            var elm = $(this).parents("li")["1"];
-            stationId = $(elm).children().eq(1).text();
-            show_soe_table();
-        })
-    }
-}
-
 function show_sta_table() {
+    document.getElementById("sta_name").innerText="";
+
 　　document.getElementById("sta_table").style.display="block";
     document.getElementById("yc_table").style.display="none";
     document.getElementById("yx_table").style.display="none";
@@ -179,13 +116,27 @@ function set_sta_data() {
     $("input[type='checkbox'][name='station_ID']").each(function() {
         if(this.checked) {
             var ID = $(this).parents('tr').children().eq(1).text();
-            var name = $(this).parents('tr').children().eq(2).text();
-            var describe = $(this).parents('tr').children().eq(3).text();
-            var ruleID = $(this).parents('tr').children().eq(4).text();
-            var address = $(this).parents('tr').children().eq(5).text();
-            var PORT = $(this).parents('tr').children().eq(6).text();
-            var role = $(this).parents('tr').children().eq(7).text();
-
+            if(!/^[0-9]+$/.test(ID)) {
+                alert('输入的ID有误，请重新输入！');
+            } else {
+                var name = $(this).parents('tr').children().eq(2).text();
+                var describe = $(this).parents('tr').children().eq(3).text();
+                var ruleID = $(this).parents('tr').children().eq(4).text();
+                if(!/^[0-9]+$/.test(ruleID)) {
+                    alert('输入的ruleID有误，请重新输入！');
+                } else {
+                    var address = $(this).parents('tr').children().eq(5).text();
+                    var PORT = $(this).parents('tr').children().eq(6).text();
+                    if(!/^[0-9]+$/.test(PORT)) {
+                        alert('输入的PORT有误，请重新输入！');
+                    } else {
+                        var role = $(this).parents('tr').children().eq(7).text();
+                        if(!/^[0-9]+$/.test(role)) {
+                            alert('输入的role有误，请重新输入！');
+                        }
+                    }
+                }
+            }
             IDs.push(ID); names.push(name); describes.push(describe);
             ruleIDs.push(ruleID); addresss.push(address); PORTs.push(PORT);
             roles.push(role);
