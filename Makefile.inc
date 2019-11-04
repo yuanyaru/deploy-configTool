@@ -1,7 +1,7 @@
 SCRIPTS=./scripts
 CONFIG_DIR=./conf
 
-ConfigTool_js_DIR=./configTool/static
+ConfigTool_js_DIR=./configTool/static/js/conf
 ConfigTool_DIR=./configTool
 
 Cct_NAME=configtool

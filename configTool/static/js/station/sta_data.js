@@ -173,12 +173,16 @@ function delete_sta_data() {
 
     var station_IDs_len = station_IDs.length;
     if (station_IDs_len > 0) {
-        $.post("/delete_station", {'ids': JSON.stringify(station_IDs)}, function(res){
-            alert(res);
-            show_db_sta_data();
-            $("input[type='checkbox']").not(this).prop("checked",false);
-            getStation();
-        });
+        if(confirm("确认要删除吗？")) {
+            $.post("/delete_station", {'ids': JSON.stringify(station_IDs)}, function (res) {
+                // alert(res);
+                show_db_sta_data();
+                $("input[type='checkbox']").not(this).prop("checked", false);
+                getStation();
+            });
+        } else {
+            $("input[type='checkbox']").not(this).prop("checked", false);
+        }
     } else {
         alert("请先选择要删除的行！")
     }

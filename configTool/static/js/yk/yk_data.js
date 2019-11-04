@@ -160,12 +160,18 @@ function delete_yk_data() {
 
     var yk_IDs_len = yk_IDs.length;
     if (yk_IDs_len > 0) {
-        $.post("/delete_yk", {'ids': JSON.stringify(yk_IDs),
-                              'stationId': stationId}, function(res){
-            alert(res);
-            show_db_yk_data();
-            $("input[type='checkbox']").not(this).prop("checked",false);
-        });
+        if(confirm("确认要删除吗？")) {
+            $.post("/delete_yk", {
+                'ids': JSON.stringify(yk_IDs),
+                'stationId': stationId
+            }, function (res) {
+                // alert(res);
+                show_db_yk_data();
+                $("input[type='checkbox']").not(this).prop("checked", false);
+            });
+        } else {
+            $("input[type='checkbox']").not(this).prop("checked", false);
+        }
     } else {
         alert("请先选择要删除的行！")
     }
