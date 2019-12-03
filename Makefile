@@ -1,6 +1,6 @@
 include Makefile.inc
 
-all:build run
+all:clean mv build run
 
 build:
 	@${SCRIPTS}/build-tool.sh
