@@ -1,3 +1,4 @@
+py=./configTool
 SCRIPTS=./scripts
 CONFIG_DIR=./conf
 
