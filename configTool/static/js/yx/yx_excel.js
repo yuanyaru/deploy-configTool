@@ -135,5 +135,5 @@ function exportExcel_yx() {
     var blob = sheet2blob(sheet);
     openDownloadDialog(blob, '导出.xlsx');*/
     var sheet = XLSX.utils.table_to_sheet($('table')[2]);
-    openDownloadDialog(sheet2blob(sheet), '导出.xlsx');
+    openDownloadDialog(sheet2blob(sheet), 'yx.xlsx');
 }
