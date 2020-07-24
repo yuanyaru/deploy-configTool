@@ -1,7 +1,3 @@
-function selectYxFile() {
-    document.getElementById('yxfile').click();
-}
-
 // 读取本地excel文件
 function readWorkbookFromLocalFile(file, callback) {
     var reader = new FileReader();
@@ -18,9 +14,12 @@ function readWorkbook_yx(workbook) {
 	var worksheet = workbook.Sheets[sheetNames[0]]; // 这里我们只读取第一张sheet
 	var csv = XLSX.utils.sheet_to_csv(worksheet);
 	var rows = csv.split('\n');
+	// 删除表头
 	delete rows[0];
-	rows.pop(); // 最后一行没用的
+	// 最后一行没用的
+	rows.pop();
     clearYxTable();
+    console.log(rows);
 	rows.forEach(function(row) {
 	    var html = "";
 		var columns = row.split(',');
@@ -30,11 +29,36 @@ function readWorkbook_yx(workbook) {
 		});
 		html += '</td></tr>';
 		$("#tBody_yx").append(html);
-	});
+    });
 }
 
-$(function() {
+function loadyxData(e) {
+    var files = e.target.files;
+    if(files.length == 0) return;
+    var f = files[0];
+    if(!/\.xlsx$/g.test(f.name)) {
+        alert('仅支持读取xlsx格式！');
+        return;
+    }
+    readWorkbookFromLocalFile(f, function(workbook) {
+        readWorkbook_yx(workbook);
+    });
+}
+
+// 局部刷新
+function yxload() {
+    $("#yxload").load(location.href+" #yxload");
+}
+
+function selectYxFile() {
+    yxload();
+    document.getElementById('yxfile').click();
+    document.getElementById('yxfile').addEventListener('change', loadyxData);
+}
+
+/*$(function () {
 	document.getElementById('yxfile').addEventListener('change', function(e) {
+	    alert("开始加载数据！！！");
 		var files = e.target.files;
 		if(files.length == 0) return;
 		var f = files[0];
@@ -46,19 +70,22 @@ $(function() {
 			readWorkbook_yx(workbook);
 		});
 	});
-});
+});*/
 
-/*function table2csv(table) {
+/*
+function table2csv(table) {
     var csv = [];
     console.log(table);
     $(table).find('tr').each(function() {
         var temp = [];
         $(this).find('td').each(function() {
             temp.push($(this).html());
-        })
-        temp.shift(); // 移除第一个
+        });
+         // 移除第一列复选框
+        temp.shift();
         csv.push(temp.join(','));
     });
+    console.log(csv);
     csv.shift();
     return csv.join('\n');
 }
@@ -77,7 +104,8 @@ function csv2sheet(csv) {
     });
     console.log(sheet);
     return sheet;
-}*/
+}
+*/
 
 // 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
 function sheet2blob(sheet, sheetName) {
