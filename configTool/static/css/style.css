@@ -97,15 +97,35 @@ input[type=button] {
 }
 #staTable, #ycTable, #yxTable, #ykTable, #ytTable, #soeTable {
     background-color: #eeeeee;
+    width: 100%;
 }
 .legend {
     font-weight: bold;
 }
-#to_top{
+#to_top {
     width:15px;
     height:18px;
     float:right;
     margin-right:15px;
     cursor:pointer;
     display:none;
+}
+
+table tbody {
+    display: block;
+    max-height: 62vh;
+    overflow-y: scroll;
+}
+
+table thead, tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+table thead{
+    width: calc( 100% - 1em );
+}
+tbody tr {
+    width: calc( 100% - 0.01em );
 }
