@@ -28,4 +28,5 @@ make
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
 48279a1aa533        configtool          "python /code/tool/c…"   10 minutes ago      Up 9 minutes        0.0.0.0:5000->5000/tcp              configtool
 ```
-看到容器启动，则完成配置工具的部署。通过浏览器访问(访问之前，先启动服务端程序)：ip:5000 进入配置页面。
+看到容器启动，则完成配置工具的部署。
+通过浏览器访问ip:5000 进入配置页面。(访问之前，先启动服务端程序，否则无法访问。)
